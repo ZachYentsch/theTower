@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import { AccountSchema, ProfileSchema } from '../models/Account'
+import { AttendeeSchema } from '../models/Attendee';
 import { TowerEventSchema } from '../models/TowerEvent';
 import { ValueSchema } from '../models/Value'
 
@@ -9,6 +10,8 @@ class DbContext {
   Profiles = mongoose.model('Profile', ProfileSchema, 'accounts');
 
   TowerEvents = mongoose.model('TowerEvent', TowerEventSchema)
+
+  Attendance = mongoose.model('Attendance', AttendeeSchema)
 }
 
 export const dbContext = new DbContext()
