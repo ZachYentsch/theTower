@@ -10,7 +10,7 @@ export class AttendeesController extends BaseController {
         super('api/attendees')
         this.router
             .use(Auth0Provider.getAuthorizedUserInfo)
-            .use((req, res, next) => { logger.log('attendee controller'); next() })
+            // .use((req, res, next) => { logger.log('attendee controller'); next() })
             .post('', this.createAttendee)
             .delete('/:id', this.removeAttendee)
     }
@@ -27,7 +27,8 @@ export class AttendeesController extends BaseController {
 
     async removeAttendee(req, res, next) {
         try {
-            const updated = await attendeesService.remove(req.params.id)
+            const deletedAttendee = await attendeesService.remove(req.params.id, req.userInfo.id)
+            res.send(deletedAttendee)
         } catch (error) {
             next(error)
         }

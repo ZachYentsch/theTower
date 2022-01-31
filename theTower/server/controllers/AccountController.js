@@ -7,8 +7,8 @@ export class AccountController extends BaseController {
   constructor() {
     super('account')
     this.router
-      .get('/attendees', this.getMyAttendance)
       .use(Auth0Provider.getAuthorizedUserInfo)
+      .get('/attendees', this.getMyAttendance)
       .get('', this.getUserAccount)
   }
 

@@ -13,3 +13,10 @@ AttendeeSchema.virtual('account', {
     justOne: true,
     ref: 'Account'
 })
+
+AttendeeSchema.virtual('event', {
+    foreignField: '_id',
+    localField: 'eventId',
+    justOne: true,
+    ref: 'TowerEvent'
+})

@@ -6,36 +6,31 @@ import { towerEventsService } from "./TowerEventsService";
 
 class AttendeesService {
 
-    async getMyAttendance(accountid) {
-        const myAttendance = await dbContext.Attendance.find(accountid).populate('account', 'name')
-        if (!myAttendance) {
-            throw new BadRequest("Unable to get your events")
-        }
+    async getMyAttendance(accountId) {
+        const myAttendance = await dbContext.Attendance.find({ accountId: accountId }).populate('event')
         return myAttendance
     }
 
     async getEventAttendance(eventId) {
-        const eventAttendance = await dbContext.Attendance.find(eventId).populate('account', 'name')
-        if (!eventAttendance) {
-            throw new BadRequest('Invalid Event')
-        }
+        const eventAttendance = await dbContext.Attendance.find({ eventId: eventId }).populate('account', 'name')
         return eventAttendance
     }
 
     async create(newAttendance) {
-        const increaseAttendance = await towerEventsService.increaseCapacity()
+        await towerEventsService.decreaseCapacity(newAttendance.eventId)
         const createdAttendance = await dbContext.Attendance.create(newAttendance)
         await createdAttendance.populate('account', 'name picture')
-        increaseAttendance
         return createdAttendance
     }
 
     async remove(id, userId) {
-        const original = await this.getMyAttendance(id)
-        const decreaseAttendance = await towerEventsService.decreaseCapacity()
-        if (original.accountId.toString() !== userId)
-            decreaseAttendance
-        await dbContext.Attendance.findByIdAndRemove({ _id: id, creatorId: userId })
+        const foundAttendee = await dbContext.Attendance.findById(id)
+        if (foundAttendee.accountId.toString() !== userId) {
+            throw new BadRequest('Unable to Delete')
+        }
+        await towerEventsService.increaseCapacity(foundAttendee.eventId)
+        await foundAttendee.remove()
+        return foundAttendee
     }
 }
 
