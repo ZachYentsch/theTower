@@ -4,11 +4,8 @@ import { BadRequest } from "../utils/Errors"
 class CommentsService {
 
     async get(eventId) {
-        const comments = await dbContext.Comments.find(eventId)
-        if (!comments) {
-            throw new BadRequest('No comments')
-        }
-        return comments
+        const getComments = await dbContext.Comments.find({ eventId: eventId }).populate('creator', 'name')
+        return getComments
     }
 
     async create(newComment) {
@@ -17,13 +14,14 @@ class CommentsService {
         return createdComment
     }
 
-    // async remove(id, userId) {
-    //     const original = await this.get(id)
-    //     if (original.creatorId.toString() !== userId) {
-    //         throw new BadRequest('Unable to remove')
-    //     }
-    //     await dbContext.Comments.findByIdAndDelete({ _id: id, creatorId: userId })
-    // }
+    async remove(id, userId) {
+        const foundComment = await dbContext.Comments.findById(id)
+        if (foundComment.creatorId.toString() !== userId) {
+            throw new BadRequest('Unable to remove')
+        }
+        await foundComment.remove()
+        return foundComment
+    }
 
 
 }
