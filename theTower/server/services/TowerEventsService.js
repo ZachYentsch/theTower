@@ -47,6 +47,20 @@ class TowerEventsService {
         }
         await dbContext.TowerEvents.findOneAndUpdate({ _id: id, creatorId: userId }, { isCanceled: !original.isCanceled })
     }
+
+    async decreaseCapacity(id) {
+        const original = await this.getById(id)
+        original.capacity -= 1
+        await original.save()
+        return original
+    }
+
+    async increaseCapacity(id) {
+        const original = await this.getById(id)
+        original.capacity += 1
+        await original.save()
+        return original
+    }
 }
 
 export const towerEventsService = new TowerEventsService()

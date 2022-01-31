@@ -7,9 +7,9 @@ export const AttendeeSchema = new Schema({
 },
     { timestamps: true, toJSON: { virtuals: true } })
 
-AttendeeSchema.virtual('creator', {
-    localField: 'creatorId',
+AttendeeSchema.virtual('account', {
+    localField: 'accountId',
     foreignField: '_id',
     justOne: true,
-    ref: 'Profile'
+    ref: 'Account'
 })
