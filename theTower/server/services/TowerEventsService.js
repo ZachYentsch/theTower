@@ -21,9 +21,9 @@ class TowerEventsService {
         return createdTowerEvent
     }
 
-    async edit(updated) {
-        const original = await dbContext.TowerEvents.findById({ _id: updated.id })
-        if (original.creatorId.toString() !== updated.creatorId) {
+    async edit(updated, activeUserId) {
+        const original = await dbContext.TowerEvents.findById(updated.id)
+        if (original.creatorId.toString() !== activeUserId) {
             throw new BadRequest('Unable to Edit')
         }
         if (original.isCanceled == true) {
@@ -45,11 +45,17 @@ class TowerEventsService {
         if (original.creatorId.toString() !== userId) {
             throw new BadRequest('Cannot Delete')
         }
+        if (original.isCanceled == true) {
+            throw new BadRequest('Cannot Delete a canceled event')
+        }
         await dbContext.TowerEvents.findOneAndUpdate({ _id: id, creatorId: userId }, { isCanceled: !original.isCanceled })
     }
 
     async decreaseCapacity(id) {
         const original = await this.getById(id)
+        if (original.capacity = 0) {
+            throw new BadRequest('Sold Out')
+        }
         original.capacity -= 1
         await original.save()
         return original

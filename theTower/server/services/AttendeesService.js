@@ -18,6 +18,9 @@ class AttendeesService {
 
     async create(newAttendance) {
         await towerEventsService.decreaseCapacity(newAttendance.eventId)
+        if (newAttendance) {
+            throw new BadRequest('Sold Out!')
+        }
         const createdAttendance = await dbContext.Attendance.create(newAttendance)
         await createdAttendance.populate('account', 'name picture')
         return createdAttendance
