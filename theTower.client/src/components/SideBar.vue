@@ -39,43 +39,37 @@
           Login
         </button>
       </li>
-      <div v-else>
-        <div class="dropdown my-2 my-lg-0 mx-0">
-          <button
-            class="btn btn-success dropdown-toggle"
-            type="button"
-            id="dropDownMenu"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            \ Manage Account
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropDownMenu">
-            <div
-              class="dropdown-menu p-0 list-group w-100"
-              aria-labelledby="authDropdown"
-            >
-              <router-link :to="{ name: 'Account' }">
-                <div class="list-group-item list-group-item-action hoverable">
-                  <small>Manage Account </small>
-                </div>
-              </router-link>
-              <div
-                class="
-                  list-group-item list-group-item-action
-                  hoverable
-                  text-danger
-                "
-                @click="logout()"
-              >
-                <i class="mdi mdi-logout"></i>
-                <small>logout </small>
-              </div>
-            </div>
-          </ul>
-        </div>
-      </div>
     </ul>
+    <div class="dropdown my-2 my-lg-0 mx-0">
+      <button
+        class="btn btn-success dropdown-toggle"
+        type="button"
+        id="dropDownMenu"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Manage
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropDownMenu">
+        <div
+          class="dropdown-menu p-0 list-group w-100"
+          aria-labelledby="authDropdown"
+        >
+          <router-link :to="{ name: 'Account' }">
+            <div class="list-group-item list-group-item-action hoverable">
+              <small>Manage Account </small>
+            </div>
+          </router-link>
+          <div
+            class="list-group-item list-group-item-action hoverable text-danger"
+            @click="logout()"
+          >
+            <i class="mdi mdi-logout"></i>
+            <small>logout </small>
+          </div>
+        </div>
+      </ul>
+    </div>
   </div>
   <Modal id="createEvent">
     <template #modal-title> Create Event</template>

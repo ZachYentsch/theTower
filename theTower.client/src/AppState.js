@@ -10,4 +10,5 @@ export const AppState = reactive({
   attendee: {},
   comments: [],
   concerts: [],
+  myTowerEvents: [],
 })

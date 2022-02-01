@@ -6,7 +6,7 @@ export class ProfilesController extends BaseController {
     super('api/profiles')
     this.router
       .get('', this.getProfiles)
-      .get('/:id', this.getProfile)
+      .get('/:id', this.getbyIdProfile)
   }
 
   async getProfiles(req, res, next) {
@@ -18,7 +18,7 @@ export class ProfilesController extends BaseController {
     }
   }
 
-  async getProfile(req, res, next) {
+  async getbyIdProfile(req, res, next) {
     try {
       const profile = await profileService.getProfileById(req.params.id)
       res.send(profile)
