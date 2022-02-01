@@ -10,50 +10,40 @@
     </router-link>
   </div>
   <div class="col-12">
-    <span class="text-light">
-      <button
-        class="
-          btn
-          selectable
-          text-success
-          lighten-30
-          text-uppercase
-          my-2 my-lg-0
-        "
-        @click="login()"
-        v-if="!user.isAuthenticated"
+    <button
+      class="btn btn-success selectable lighten-20 text-uppercase"
+      @click="login()"
+      v-if="!user.isAuthenticated"
+    >
+      Login
+    </button>
+    <div class="dropdown my-2 my-lg-0" v-else>
+      <div
+        class="dropdown-menu p-0 list-group w-100"
+        aria-labelledby="authDropdown"
       >
-        Login
-      </button>
-
-      <div class="dropdown my-2 my-lg-0" v-else>
-        <div
-          class="dropdown-menu p-0 list-group w-100"
-          aria-labelledby="authDropdown"
-        >
-          <router-link :to="{ name: 'Account' }">
-            <div class="list-group-item list-group-item-action hoverable">
-              Manage Account
-            </div>
-          </router-link>
-          <div
-            class="list-group-item list-group-item-action hoverable text-danger"
-            @click="logout()"
-          >
-            <i class="mdi mdi-logout"></i>
-            logout
+        <router-link :to="{ name: 'Account' }">
+          <div class="list-group-item list-group-item-action hoverable">
+            Manage Account
           </div>
+        </router-link>
+        <div
+          class="list-group-item list-group-item-action hoverable text-danger"
+          @click="logout"
+        >
+          <i class="mdi mdi-logout"></i>
+          logout
         </div>
       </div>
-    </span>
+    </div>
   </div>
 </template>
 
 
 <script>
-import { computed } from '@vue/reactivity'
-import { AppState } from '../AppState'
 import { AuthService } from '../services/AuthService'
+import { AppState } from '../AppState'
+import { computed } from 'vue'
 export default {
   setup() {
     return {

@@ -1,5 +1,5 @@
 <template>
-  <main class="container-fluid">
+  <main class="container-fluid bg-dark">
     <div class="row">
       <div class="col-10">
         <router-view />
@@ -9,11 +9,6 @@
       </div>
     </div>
   </main>
-  <footer>
-    <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
-    </div>
-  </footer>
 </template>
 
 <script>

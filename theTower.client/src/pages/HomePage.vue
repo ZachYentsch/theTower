@@ -1,28 +1,86 @@
 <template>
-  <div
-    class="
-      home
-      flex-grow-1
-      d-flex
-      flex-column
-      align-items-center
-      justify-content-center
-    "
-  >
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img
-        src="https://bcw.blob.core.windows.net/public/img/8600856373152463"
-        alt="CodeWorks Logo"
-        class="rounded-circle"
-      />
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center"></h1>
+  <div class="row">
+    <div class="col-12 d-flex justify-content-between p-3">
+      <h1 class="text-light">Tower</h1>
+      <button
+        class="btn btn-outline-success"
+        data-bs-toggle="modal"
+        data-bs-target="#createEvent"
+        v-if="account.id"
+      >
+        <i class="mdi mdi-plus"></i>
+      </button>
     </div>
   </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card bg-dark text-white p-3">
+        <img
+          src="https://th.bing.com/th/id/OIP.A79oMqjZkGecXPE1tUmnxQHaEK?pid=ImgDet&rs=1"
+          class="card-img"
+          style="filter: blur(8px)"
+          alt="..."
+          height="200"
+        />
+        <div class="card-img-overlay">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">
+            This is a wider card with supporting text below as a natural lead-in
+            to additional content. This content is a little bit longer.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 bg-secondary mt-3">
+        <span class="d-flex justify-content-between p-3">
+          <h4 class="selectable">All</h4>
+          <h4 class="selectable">Concert</h4>
+          <h4 class="selectable">Convention</h4>
+          <h4 class="selectable">Sports</h4>
+          <h4 class="selectable">Digital</h4>
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3" v-for="t in towerEvents" :key="t.id">
+        <TowerEvent :towerEvents="t" />
+      </div>
+    </div>
+  </div>
+  <Modal id="createEvent">
+    <template #modal-title> Create Event</template>
+    <template #modal-body>
+      <CreateEvent />
+    </template>
+  </Modal>
 </template>
 
 <script>
+import { computed, onMounted, ref } from '@vue/runtime-core'
+import { logger } from '../utils/Logger'
+import { towerEventsService } from '../services/TowerEventsService'
+import { AppState } from '../AppState'
+import Pop from '../utils/Pop'
 export default {
-  name: 'Home'
+  name: 'Home',
+  setup() {
+    const loading = ref(true)
+    onMounted(async () => {
+      try {
+        await towerEventsService.getAllEvents()
+        loading.value = false
+      } catch (error) {
+        logger.error(error)
+        Pop.toast(error.message, 'Error')
+      }
+    })
+
+    return {
+      towerEvents: computed(() => AppState.towerEvents),
+      account: computed(() => AppState.account)
+    }
+  }
 }
 </script>
 
@@ -33,15 +91,5 @@ export default {
   place-content: center;
   text-align: center;
   user-select: none;
-  .home-card {
-    width: 50vw;
-    > img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
-  }
 }
 </style>
