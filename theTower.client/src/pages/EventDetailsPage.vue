@@ -7,7 +7,7 @@
     </div>
     <div class="col-12">
       <img
-        :src="towerevent.coverImg"
+        :src="towerEvent.coverImg"
         alt=""
         class="card-img"
         style="filter: blur(8px)"
@@ -65,24 +65,20 @@
 
 
 <script>
+import { computed, ref } from '@vue/reactivity'
 import { useRoute } from 'vue-router'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
+import { AppState } from '../AppState'
 export default {
-  props: {
-    towerEvent: {
-      type: Object,
-      required: true
-    },
-    comments: {
-      type: Object,
-      required: true
-    }
-  },
-  setup(props) {
+  setup() {
     const route = useRoute()
     const editable = ref({})
     return {
+      towerEvents: computed(() => AppState.towerEvents),
+      account: computed(() => AppState.account),
+      comments: computed(() => AppState.comments),
+      attendee: computed(() => AppState.attendee),
       editable,
       async createComment() {
         try {

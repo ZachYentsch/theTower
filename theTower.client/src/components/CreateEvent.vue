@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="SubmitTower()">
+  <form @submit.prevent="submitTower()">
     <div class="form-group">
       <label for="name">Name:</label>
       <input
@@ -75,10 +75,10 @@
         class="form-control"
       >
         <option disabled selected value="">Choose an Event Type</option>
-        <option>Sports</option>
-        <option>Digitals</option>
-        <option>Concert</option>
-        <option>Convention</option>
+        <option>sport</option>
+        <option>digital</option>
+        <option>concert</option>
+        <option>convention</option>
       </select>
     </div>
     <div class="d-flex justify-content-between my-3">
@@ -99,7 +99,7 @@
 
 
 <script>
-import { watchEffect } from '@vue/runtime-core'
+import { ref, watchEffect } from '@vue/runtime-core'
 import { TowerEvent } from '../models/TowerEvent'
 import Pop from '../utils/Pop'
 import { towerEventsService } from '../services/TowerEventsService'
@@ -119,7 +119,7 @@ export default {
         try {
           if (editable.value.id) {
             await towerEventsService.editTowerEvent(editable.value)
-            Modal.getOrCreateInstance(document.getElementById('c')).hide()
+            Modal.getOrCreateInstance(document.getElementById('editEvent')).hide()
           } else {
             await towerEventsService.createTowerEvent(editable.value)
             Modal.getOrCreateInstance(document.getElementById('createEvent')).hide()

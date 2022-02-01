@@ -7,6 +7,10 @@ class CommentsService {
         const res = await api.post('api/comments', newComment)
         logger.log(res.data)
     }
+
+    async removeComment(id) {
+        const res = a
+    }
 }
 
 export const commentsService = new CommentsService()

@@ -53,7 +53,7 @@ class TowerEventsService {
 
     async decreaseCapacity(id) {
         const original = await this.getById(id)
-        if (original.capacity = 0) {
+        if (original.capacity == 0) {
             throw new BadRequest('Sold Out')
         }
         original.capacity -= 1

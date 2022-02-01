@@ -2,14 +2,6 @@
   <div class="row">
     <div class="col-12 d-flex justify-content-between p-3">
       <h1 class="text-light">Tower</h1>
-      <button
-        class="btn btn-outline-success"
-        data-bs-toggle="modal"
-        data-bs-target="#createEvent"
-        v-if="account.id"
-      >
-        <i class="mdi mdi-plus"></i>
-      </button>
     </div>
   </div>
   <div class="row">
@@ -43,17 +35,11 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3" v-for="t in towerEvents" :key="t.id">
-        <TowerEvent :towerEvents="t" />
+      <div class="col-md-3 mt-3" v-for="t in towerEvents" :key="t.id">
+        <TowerEvent :towerEvent="t" />
       </div>
     </div>
   </div>
-  <Modal id="createEvent">
-    <template #modal-title> Create Event</template>
-    <template #modal-body>
-      <CreateEvent />
-    </template>
-  </Modal>
 </template>
 
 <script>

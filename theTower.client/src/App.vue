@@ -4,8 +4,8 @@
       <div class="col-10">
         <router-view />
       </div>
-      <div>
-        <Sidebar class="col-md-2" />
+      <div class="col-md-2">
+        <Sidebar />
       </div>
     </div>
   </main>
