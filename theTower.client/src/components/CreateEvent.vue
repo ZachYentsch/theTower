@@ -104,6 +104,7 @@ import { TowerEvent } from '../models/TowerEvent'
 import Pop from '../utils/Pop'
 import { towerEventsService } from '../services/TowerEventsService'
 import { Modal } from 'bootstrap'
+import { router } from '../router'
 export default {
   props: {
     towerEvent: { type: TowerEvent, default: () => new TowerEvent() }
@@ -123,6 +124,7 @@ export default {
           } else {
             await towerEventsService.createTowerEvent(editable.value)
             Modal.getOrCreateInstance(document.getElementById('createEvent')).hide()
+            router.push({ name: 'EventDetails', params: { id: editable.value.id } })
           }
         } catch (error) {
           Pop.toast(error.message, 'error')

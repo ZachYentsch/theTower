@@ -7,16 +7,16 @@
       <div class="card selectable text-light">
         <div class="position-relative w-100">
           <div class="gradient">
-            <div class="position-absolute clip-text">
-              <b class="text-white f-20">
+            <div class="position-absolute clip-text col-12">
+              <p class="text-white bg-dark">
                 {{ towerEvent.name }} {{ towerEvent.startDate }}
                 {{ towerEvent.location }}
-              </b>
+              </p>
             </div>
             <img
               :src="towerEvent.coverImg"
               alt="Event Image"
-              class="rounded w-100"
+              class="rounded img-fluid"
             />
           </div>
         </div>
@@ -42,6 +42,10 @@ export default {
 .gradient:after {
   content: "";
   position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background: linear-gradient(
     180deg,
     hsla(0, 0, 0, 0),

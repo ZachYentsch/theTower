@@ -17,8 +17,8 @@ class CommentsService {
 
     async removeComment(id) {
         const res = await api.delete('api/comments/' + id)
-        logger.log(res.data)
-        AppState.towerEvents = AppState.towerEvents.filter(t => t.id != towerEvent.id)
+        logger.log('comment Removed', res.data)
+        AppState.towerEvents = AppState.towerEvents.filter(t => t.id != t.id)
     }
 }
 

@@ -26,16 +26,16 @@
     <div class="row">
       <div class="col-12 bg-secondary mt-3">
         <span class="d-flex justify-content-between p-3">
-          <h4 class="selectable" @click="getAll()">All</h4>
+          <h4 class="selectable" @click="getAllEvents()">All</h4>
           <h4 class="selectable" @click="getConcert()">Concert</h4>
           <h4 class="selectable" @click="getConvention()">Convention</h4>
-          <h4 class="selectable" @click="getSports()">Sports</h4>
+          <h4 class="selectable" @click="getSport()">Sports</h4>
           <h4 class="selectable" @click="getDigital()">Digital</h4>
         </span>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3 mt-3" v-for="t in towerEvents" :key="t.id">
+      <div class="col-md-4 mt-3" v-for="t in filteredEvents" :key="t.id">
         <TowerEvent :towerEvent="t" />
       </div>
     </div>
@@ -48,6 +48,7 @@ import { logger } from '../utils/Logger'
 import { towerEventsService } from '../services/TowerEventsService'
 import { AppState } from '../AppState'
 import Pop from '../utils/Pop'
+import { TowerEvent } from '../models/TowerEvent'
 export default {
   name: 'Home',
   setup() {
@@ -63,8 +64,40 @@ export default {
     })
 
     return {
-      towerEvents: computed(() => AppState.towerEvents),
-      account: computed(() => AppState.account)
+      filteredEvents: computed(() => AppState.filteredEvents),
+      account: computed(() => AppState.account),
+      async getAllEvents() {
+        try {
+          await towerEventsService.getAllEvents()
+        } catch (error) {
+          logger.log(error.message)
+          Pop.toast(error.message, 'Error')
+        }
+      },
+
+      async getConcert() {
+        const concerts = AppState.towerEvents.filter((t) => t.type == 'concert')
+        console.log(concerts)
+        AppState.filteredEvents = concerts
+      },
+
+      async getConvention() {
+        const convention = AppState.towerEvents.filter((t) => t.type == 'convention')
+        console.log(convention)
+        AppState.filteredEvents = convention
+      },
+
+      async getSport() {
+        const sport = AppState.towerEvents.filter((t) => t.type == 'sport')
+        logger.log(sport)
+        AppState.filteredEvents = sport
+      },
+
+      async getDigital() {
+        const digital = AppState.towerEvents.filter((t) => t.type == 'digital')
+        logger.log(digital)
+        AppState.filteredEvents = digital
+      },
     }
   }
 }
