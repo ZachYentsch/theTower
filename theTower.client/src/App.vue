@@ -5,7 +5,7 @@
         <router-view />
       </div>
       <div>
-        <SideBar class="col-md-2" />
+        <Sidebar class="col-md-2" />
       </div>
     </div>
   </main>
