@@ -15,11 +15,8 @@
           height="200"
         />
         <div class="card-img-overlay">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            This is a wider card with supporting text below as a natural lead-in
-            to additional content. This content is a little bit longer.
-          </p>
+          <h5 class="card-title">Get Your Tickets Now!</h5>
+          <p class="card-text">Go where your daily routine can't.</p>
         </div>
       </div>
     </div>

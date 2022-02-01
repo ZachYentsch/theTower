@@ -12,7 +12,7 @@ class TowerEventsService {
     }
 
     async getEventById(id) {
-        const res = await api.get('api/events' + id)
+        const res = await api.get('api/events/' + id)
         logger.log(res.data)
         // NOTE don't need to utitlize client side model
         AppState.activeEvent = new TowerEvent(res.data)

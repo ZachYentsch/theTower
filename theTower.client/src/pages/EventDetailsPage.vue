@@ -5,20 +5,22 @@
         <h1 class="text-light">Tower</h1>
       </div>
     </div>
-    <div class="col-12">
-      <img
-        :src="activeEvent.coverImg"
-        alt=""
-        class="card-img"
-        style="filter: blur(8px)"
-        height="200"
-      />
-      <div class="">
-        <div class="d-flex">
-          <h3>
-            {{ activeEvent.name }}
+    <div class="row">
+      <div class="col-12 card text-light bg-dark">
+        <img
+          :src="towerEvent.coverImg"
+          alt=""
+          class="card-img"
+          style="filter: blur(20px)"
+          height="300"
+        />
+        <div class="card-img-overlay textShadow">
+          <h3 class="card-title">
+            {{ towerEvent.name }}
           </h3>
-          <p>{{ activeEvent.description }}</p>
+          <p class="card-text d-flex align-items-stretch">
+            {{ towerEvent.description }}
+          </p>
         </div>
       </div>
     </div>
@@ -65,22 +67,24 @@ import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
 import { AppState } from '../AppState'
 import { commentsService } from '../services/CommentsService'
+import { towerEventsService } from '../services/TowerEventsService'
 export default {
   setup() {
     const loading = ref(true)
     const route = useRoute()
     onMounted(async () => {
       try {
+        await towerEventsService.getEventById(route.params.id)
         await commentsService.getComments(route.params.id)
         loading.value = false
       } catch (error) {
         logger.error(error.message)
-        Pop.toast(error.message, 'Error')
+        Pop.toast(error.message, "error")
       }
     })
     const editable = ref({})
     return {
-      activeEvent: computed(() => AppState.activeEvent),
+      towerEvent: computed(() => AppState.activeEvent),
       account: computed(() => AppState.account),
       comments: computed(() => AppState.comments),
       attendee: computed(() => AppState.attendee),
@@ -92,7 +96,7 @@ export default {
           editable.value = {}
           Pop.toast('Comment Created')
         } catch (error) {
-          Pop.toast(error.message, 'Error')
+          Pop.toast(error.message, 'error')
           logger.error(error)
         }
       }
@@ -101,6 +105,8 @@ export default {
 }
 </script>
 
-
 <style lang="scss" scoped>
+.textShadow {
+  text-shadow: #000 1px 0 10px;
+}
 </style>
