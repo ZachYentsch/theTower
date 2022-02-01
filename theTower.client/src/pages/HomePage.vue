@@ -26,11 +26,11 @@
     <div class="row">
       <div class="col-12 bg-secondary mt-3">
         <span class="d-flex justify-content-between p-3">
-          <h4 class="selectable">All</h4>
-          <h4 class="selectable">Concert</h4>
-          <h4 class="selectable">Convention</h4>
-          <h4 class="selectable">Sports</h4>
-          <h4 class="selectable">Digital</h4>
+          <h4 class="selectable" @click="getAll()">All</h4>
+          <h4 class="selectable" @click="getConcert()">Concert</h4>
+          <h4 class="selectable" @click="getConvention()">Convention</h4>
+          <h4 class="selectable" @click="getSports()">Sports</h4>
+          <h4 class="selectable" @click="getDigital()">Digital</h4>
         </span>
       </div>
     </div>

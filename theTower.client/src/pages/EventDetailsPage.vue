@@ -7,18 +7,18 @@
     </div>
     <div class="col-12">
       <img
-        :src="towerEvent.coverImg"
+        :src="activeEvent.coverImg"
         alt=""
         class="card-img"
         style="filter: blur(8px)"
         height="200"
       />
-      <div class="card-img-overlay">
+      <div class="">
         <div class="d-flex">
           <h3>
-            {{ towerEvent.name }}
+            {{ activeEvent.name }}
           </h3>
-          <p>{{ towerEvent.description }}</p>
+          <p>{{ activeEvent.description }}</p>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
         <div class="card w-100 mt-3 bg-secondary">
           <div class="card-body">
             <p class="card-title text-end">Join the Conversation</p>
-            <form>
+            <form @submit.prevent="createComment()">
               <div>
                 <label for="body">Comment:</label>
                 <input
@@ -48,13 +48,7 @@
                 <i class="mdi mdi-plus"></i>
               </button>
             </form>
-            <!-- <div class="">
-              <ul>
-                <li>
-
-                </li>
-              </ul>
-            </div> -->
+            <Comment v-for="c in comments" :key="c.id" :comment="c" />
           </div>
         </div>
       </div>
@@ -65,29 +59,41 @@
 
 
 <script>
-import { computed, ref } from '@vue/reactivity'
+import { computed, ref, onMounted } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
 import { AppState } from '../AppState'
+import { commentsService } from '../services/CommentsService'
 export default {
   setup() {
+    const loading = ref(true)
     const route = useRoute()
+    onMounted(async () => {
+      try {
+        await commentsService.getComments(route.params.id)
+        loading.value = false
+      } catch (error) {
+        logger.error(error.message)
+        Pop.toast(error.message, 'Error')
+      }
+    })
     const editable = ref({})
     return {
-      towerEvents: computed(() => AppState.towerEvents),
+      activeEvent: computed(() => AppState.activeEvent),
       account: computed(() => AppState.account),
       comments: computed(() => AppState.comments),
       attendee: computed(() => AppState.attendee),
       editable,
       async createComment() {
         try {
-          await commentsService.createComment(editable.value, route.params.id, props.comments.id)
+          editable.value.eventId = route.params.id
+          await commentsService.createComment(editable.value)
           editable.value = {}
           Pop.toast('Comment Created')
         } catch (error) {
-          Pop.toast(error.message, 'error')
-          logger.error(error.message)
+          Pop.toast(error.message, 'Error')
+          logger.error(error)
         }
       }
     }

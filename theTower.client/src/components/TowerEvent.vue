@@ -27,10 +27,9 @@
 
 
 <script>
-import { TowerEvent } from '../models/TowerEvent'
 export default {
   props: {
-    towerEvent: { type: TowerEvent, required: true }
+    towerEvent: { type: Object, required: true }
   },
   setup() {
     return {}

@@ -1,16 +1,12 @@
 <template>
   <div class="row">
-    <ul>
-      <li>
-        <div class="col-3">
-          <img :src="comments.creator.Img" alt="" />
-        </div>
-        <div class="col-9 bg-dark">
-          <p>{{ comments.body }}</p>
-        </div>
-        <i class="mdi mdi-trash selectable" @click="removeComment()"></i>
-      </li>
-    </ul>
+    <div class="col-4">
+      <img :src="user.picture" alt="" height="30" class="rounded" />
+    </div>
+    <div class="bg-dark col-8">
+      <p>{{ comment.body }}</p>
+    </div>
+    <i class="mdi mdi-trash-can selectable" @click="removeComment()"></i>
   </div>
 </template>
 
@@ -18,15 +14,19 @@
 <script>
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
+import { commentsService } from '../services/CommentsService'
+import { computed } from '@vue/reactivity'
+import { AppState } from '../AppState'
 export default {
   props: {
-    comments: {
+    comment: {
       type: Object,
       required: true
     }
   },
   setup(props) {
     return {
+      user: computed(() => AppState.user),
       async removeComment() {
         try {
           await commentsService.removeComment(props.comments.id, route.params.id)
