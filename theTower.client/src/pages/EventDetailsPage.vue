@@ -3,8 +3,10 @@
     <div class="row">
       <div class="col-12 d-flex justify-content-between pt-2">
         <h1 class="text-light">Tower</h1>
-        <div v-if="towerEvent.creator == account.id">
-          <div>
+        <div>
+          <div
+            v-if="towerEvent.creatorId == account.id && !towerEvent.isCanceled"
+          >
             <button
               class="btn btn-secondary"
               data-bs-toggle="modal"
@@ -13,8 +15,17 @@
               Edit Event
             </button>
           </div>
+          <div v-else>
+            <button
+              class="btn btn-secondary"
+              data-bs-toggle="modal"
+              data-bs-target="#editEvent"
+              disabled
+            >
+              CANNOT EDIT CANCELLED EVENT
+            </button>
+          </div>
         </div>
-        <button v-else></button>
         <div v-if="towerEvent.creatorId == account.id">
           <button
             class="btn btn-danger"
@@ -88,7 +99,7 @@
                   required
                 />
               </div>
-              <button class="btn btn-success" @click="createComment()">
+              <button class="btn btn-success">
                 <i class="mdi mdi-plus"></i>
               </button>
             </form>

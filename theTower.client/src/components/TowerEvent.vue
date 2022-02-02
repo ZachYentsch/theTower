@@ -9,7 +9,8 @@
           <div class="gradient">
             <div class="position-absolute clip-text col-12">
               <p class="text-white bg-dark">
-                {{ towerEvent.name }} {{ towerEvent.startDate }}
+                {{ towerEvent.name }}
+                {{ new Date(towerEvent.startDate).toLocaleString() }}
               </p>
               <div class="bg-dark d-flex justify-content-between">
                 <p>
