@@ -123,8 +123,8 @@ export default {
     const route = useRoute()
     onMounted(async () => {
       try {
-        await attendeesService.getEventAttendees(route.params.id)
         await towerEventsService.getEventById(route.params.id)
+        await attendeesService.getEventAttendees(route.params.id)
         await commentsService.getComments(route.params.id)
         loading.value = false
       } catch (error) {

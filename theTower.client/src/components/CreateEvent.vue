@@ -105,9 +105,10 @@ import Pop from '../utils/Pop'
 import { towerEventsService } from '../services/TowerEventsService'
 import { Modal } from 'bootstrap'
 import { router } from '../router'
+import { logger } from '../utils/Logger'
 export default {
   props: {
-    towerEvent: { type: TowerEvent, default: () => new TowerEvent() }
+    towerEvent: { type: Object, default: () => new TowerEvent() }
   },
   setup(props) {
     const editable = ref({})
@@ -118,11 +119,12 @@ export default {
       editable,
       async submitTower() {
         try {
-          await towerEventsService.createTowerEvent(editable.value)
+          let createdEvent = await towerEventsService.createTowerEvent(editable.value)
           Modal.getOrCreateInstance(document.getElementById('createEvent')).hide()
-          router.push({ name: 'EventDetails', params: { id: editable.value.id } })
+          router.push({ name: 'EventDetails', params: { id: createdEvent.id } })
         } catch (error) {
           Pop.toast(error.message, 'error')
+          logger.error(error)
         }
       }
     }

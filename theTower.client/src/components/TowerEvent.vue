@@ -19,10 +19,19 @@
               </div>
             </div>
             <img
+              v-if="towerEvent.isCanceled == false"
               :src="towerEvent.coverImg"
-              alt="Event Image"
               class="rounded img-fluid"
             />
+            <div v-else>
+              <img
+                :src="towerEvent.coverImg"
+                class="rounded img-fluid"
+                style="filter: grayscale(1)"
+                aria-labelledby="Event Cancelled"
+              />
+              <h3 class="bg-light text-danger">Event Canceled</h3>
+            </div>
           </div>
         </div>
       </div>
