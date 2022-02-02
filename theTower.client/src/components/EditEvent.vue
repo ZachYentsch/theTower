@@ -103,11 +103,13 @@ import { TowerEvent } from '../models/TowerEvent'
 import Pop from '../utils/Pop'
 import { towerEventsService } from '../services/TowerEventsService'
 import { Modal } from 'bootstrap'
+import { useRoute } from 'vue-router'
 export default {
   props: {
     towerEvent: { type: TowerEvent, default: () => new TowerEvent() }
   },
   setup(props) {
+    const route = useRoute()
     const editable = ref({})
     watchEffect(() => {
       editable.value = { ...props.towerEvent }
@@ -116,10 +118,10 @@ export default {
       editable,
       async editEvent() {
         try {
-          if (editable.value.id) {
-            await towerEventsService.editTowerEvent(editable.value)
-            Modal.getOrCreateInstance(document.getElementById('editEvent')).hide()
-          }
+
+          await towerEventsService.editTowerEvent(editable.value, route.params.id)
+          Modal.getOrCreateInstance(document.getElementById('editEvent')).hide()
+
         } catch (error) {
           Pop.toast(error.message, 'error')
         }

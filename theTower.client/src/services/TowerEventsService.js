@@ -29,8 +29,8 @@ class TowerEventsService {
         logger.log(res.data)
     }
 
-    async editTowerEvent(updatedEvent) {
-        const res = await api.put('api/events/' + updatedEvent.id, updatedEvent)
+    async editTowerEvent(updatedEvent, id) {
+        const res = await api.put('api/events/' + id, updatedEvent)
         logger.log(res.data)
         AppState.activeEvent = new TowerEvent(res.data)
     }
