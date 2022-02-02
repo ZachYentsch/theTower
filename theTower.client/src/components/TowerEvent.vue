@@ -19,7 +19,7 @@
               </div>
             </div>
             <img
-              v-if="towerEvent.isCanceled == false"
+              v-if="towerEvent.isCanceled == false || towerEvent.capacity == 0"
               :src="towerEvent.coverImg"
               class="rounded img-fluid"
             />
