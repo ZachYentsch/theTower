@@ -7,6 +7,7 @@ export class TowerEvent {
         this.capacity = data.description
         this.startDate = data.startDate
         this.type = data.type
+        this.isCanceled = data.isCanceled
         this.id = data.id
     }
 }

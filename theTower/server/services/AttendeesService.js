@@ -12,7 +12,7 @@ class AttendeesService {
     }
 
     async getEventAttendance(eventId) {
-        const eventAttendance = await dbContext.Attendance.find({ eventId: eventId }).populate('account', 'name')
+        const eventAttendance = await dbContext.Attendance.find({ eventId: eventId }).populate('account', 'name picture')
         return eventAttendance
     }
 

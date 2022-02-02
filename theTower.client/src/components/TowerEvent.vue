@@ -10,8 +10,13 @@
             <div class="position-absolute clip-text col-12">
               <p class="text-white bg-dark">
                 {{ towerEvent.name }} {{ towerEvent.startDate }}
-                {{ towerEvent.location }}
               </p>
+              <div class="bg-dark d-flex justify-content-between">
+                <p>
+                  {{ towerEvent.location }}
+                </p>
+                <p>Tickets Left:{{ towerEvent.capacity }}</p>
+              </div>
             </div>
             <img
               :src="towerEvent.coverImg"
@@ -27,12 +32,14 @@
 
 
 <script>
+import { computed } from '@vue/reactivity'
 export default {
   props: {
     towerEvent: { type: Object, required: true }
   },
   setup() {
-    return {}
+    return {
+    }
   }
 }
 </script>

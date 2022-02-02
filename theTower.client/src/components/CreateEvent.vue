@@ -19,7 +19,6 @@
         v-model="editable.description"
         class="form-control"
         id="description"
-        required
       />
     </div>
     <div class="form-group">
@@ -41,7 +40,6 @@
         v-model="editable.location"
         class="form-control"
         id="location"
-        required
       />
     </div>
     <div class="form-group">
@@ -62,7 +60,6 @@
         v-model="editable.startDate"
         class="form-control"
         id="startDate"
-        required
       />
     </div>
     <div class="form-group">
