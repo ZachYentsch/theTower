@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12 d-flex justify-content-between pt-2">
         <h1 class="text-light">Tower</h1>
-        <div v-if="towerEvent.creatorId == account.id">
+        <div v-if="towerEvent.creator == account.id">
           <div>
             <button
               class="btn btn-secondary"
@@ -13,6 +13,9 @@
               Edit Event
             </button>
           </div>
+        </div>
+        <button v-else></button>
+        <div v-if="towerEvent.creatorId == account.id">
           <button
             class="btn btn-danger"
             v-if="towerEvent.isCanceled == false"
@@ -36,8 +39,9 @@
         <div class="card-img-overlay textShadow">
           <h3 class="card-title">
             {{ towerEvent.name }}
+            - Tickets Left: {{ towerEvent.capacity }}
           </h3>
-          <p class="card-text d-flex align-items-stretch">
+          <p class="card-text d-flex">
             {{ towerEvent.description }}
           </p>
           <div v-if="towerEvent.isCanceled == false">
@@ -98,7 +102,7 @@
   <Modal id="editEvent">
     <template #modal-title> Edit Event</template>
     <template #modal-body>
-      <CreateEvent />
+      <EditEvent />
     </template>
   </Modal>
 </template>

@@ -7,16 +7,6 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <h4 class="text-success mt-3">My Events</h4>
-      </div>
-    </div>
-    <div class="row">
-      <!-- <div class="col-md-4" v-for="m in myEvents" :key="m.id">
-        <TowerEvent :towerEvent="m.event" />
-      </div> -->
-    </div>
-    <div class="row">
-      <div class="col-12">
         <h4 class="text-success mt-3">Upcoming Events</h4>
       </div>
       <div class="col-12" v-for="m in myEvents" :key="m.id">

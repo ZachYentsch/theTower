@@ -19,6 +19,7 @@
         v-model="editable.description"
         class="form-control"
         id="description"
+        required
       />
     </div>
     <div class="form-group">
@@ -40,6 +41,7 @@
         v-model="editable.location"
         class="form-control"
         id="location"
+        required
       />
     </div>
     <div class="form-group">
@@ -60,6 +62,7 @@
         v-model="editable.startDate"
         class="form-control"
         id="startDate"
+        required
       />
     </div>
     <div class="form-group">
@@ -115,14 +118,9 @@ export default {
       editable,
       async submitTower() {
         try {
-          if (editable.value.id) {
-            await towerEventsService.editTowerEvent(editable.value)
-            Modal.getOrCreateInstance(document.getElementById('editEvent')).hide()
-          } else {
-            await towerEventsService.createTowerEvent(editable.value)
-            Modal.getOrCreateInstance(document.getElementById('createEvent')).hide()
-            router.push({ name: 'EventDetails', params: { id: editable.value.id } })
-          }
+          await towerEventsService.createTowerEvent(editable.value)
+          Modal.getOrCreateInstance(document.getElementById('createEvent')).hide()
+          router.push({ name: 'EventDetails', params: { id: editable.value.id } })
         } catch (error) {
           Pop.toast(error.message, 'error')
         }
