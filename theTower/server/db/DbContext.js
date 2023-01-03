@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
 import { AccountSchema, ProfileSchema } from '../models/Account'
-import { AttendeeSchema } from '../models/Attendee';
-import { CommentSchema } from '../models/Comment';
-import { TowerEventSchema } from '../models/TowerEvent';
+import { AttendeeSchema } from '../models/Attendee'
+import { CommentSchema } from '../models/Comment'
+import { TowerEventSchema } from '../models/TowerEvent'
 import { ValueSchema } from '../models/Value'
 
 class DbContext {

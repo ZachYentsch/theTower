@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 

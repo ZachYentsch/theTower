@@ -26,12 +26,13 @@
             />
             <div v-else>
               <img
-                :src="towerEvent.coverImg"
-                class="rounded img-fluid"
-                style="filter: grayscale(1)"
-                aria-labelledby="Event Cancelled"
+              :src="towerEvent.coverImg"
+              class="rounded img-fluid"
+              style="filter: grayscale(1)"
+              aria-labelledby="Event Cancelled"
               />
-              <h3 class="bg-light text-danger">Event Canceled</h3>
+              <p class="bg-light text-danger"
+              style="z-index: 1;">Event Canceled</p>
             </div>
           </div>
         </div>
